@@ -1,0 +1,44 @@
+vertex_program shader/vs glsl 
+{
+    source MaterialVp.glsl 
+
+    default_params
+    {
+        param_named_auto world_mat world_matrix
+        param_named_auto view_mat view_matrix
+        param_named_auto projection_mat projection_matrix
+		param_named_auto normal_mat inverse_transpose_worldview_matrix
+		param_named light_position float3 0.5 0.5 1.5
+    }
+}
+
+
+fragment_program shader/fs glsl 
+{
+    source MaterialFp.glsl 
+
+	default_params
+	{
+		 param_named specular_colour float4 0.8 0.5 0.9 1.0
+		 param_named ambient_amount float 0.3
+		 param_named phong_exponent float 10.0
+	}
+}
+
+
+material ObjectMaterial
+{
+    technique
+    {
+        pass
+        {
+            vertex_program_ref shader/vs
+            {
+            }
+
+            fragment_program_ref shader/fs
+            {
+            }
+        } 
+    }
+}
